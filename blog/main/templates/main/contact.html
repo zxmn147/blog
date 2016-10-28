@@ -1,0 +1,17 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+</head>
+<body>
+<h1>聯絡我們</h1>
+<p>名字：朝陽科技大學</p>
+<p>Email:cyut@cyut.edu.tw</p>
+<p>Address: 台中市霧峰區吉峰東路168號</p>
+<p>學校網址:<a href="http://web.cyut.edu.tw/bin/home.php?Lang=zh-tw" target="_blank"></a></p>
+<p><a href="{% url 'main:main' %}">回首頁</a></p>
+</body>
+</html>
