@@ -31,4 +31,8 @@ class Book(models.Model):
     version = models.CharField(max_length=128)
     price = models.IntegerField()
     
+    def __str__(self):
+        return self.title
+    
+    
     

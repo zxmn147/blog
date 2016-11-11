@@ -8,7 +8,7 @@ from article.models import Book
 
 
 def populate():
-    print('Populate Book...', end='')
+    print('Populating Book...', end='')
     titles = ['python', '小王子' , 'Java' , '黑子的籃球' , 'Django' , '管理數學' , '計概' , 'c++' , 'vb' ,'少年陰陽師']
     authornames = ['王一' , '王二' , '王三']
     Book.objects.all().delete()
