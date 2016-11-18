@@ -2,8 +2,7 @@ from populate import base
 
 import datetime
 import random
-
-from article.models import Book
+from book.models import Book
 
 
 
