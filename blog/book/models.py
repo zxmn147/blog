@@ -4,8 +4,8 @@ from django.db import models
 class Book(models.Model):
     title = models.CharField(max_length=128, unique=True)
     authorname = models.CharField(max_length=128)
-    Publisher = models.CharField(max_length=128)
-    Date = models.DateField()
+    publisher = models.CharField(max_length=128)
+    date = models.DateField()
     version = models.CharField(max_length=128)
     price = models.IntegerField()
     

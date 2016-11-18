@@ -8,10 +8,5 @@ def book(request):
     '''
     Render the article page
     '''
-    books = Book.objects.all()
-    itemArray = []
-    for book in books:
-        items = [book]
-        itemArray.append(items)
-    context = {'itemArray':itemArray}
+    context = {'books':Book.objects.all()}
     return render(request, 'book/book.html', context)
