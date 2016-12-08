@@ -8,10 +8,17 @@
 </head>
 <body>
 {% include 'main/menu.html' %}
-<h2>新增文章</h2>
-<form method="post" action="{% url 'article:articleCreate' %}">
+{% if article %}
+	<h2>修改文章</h2>
+	<form method="post" action="{% url 'article:articleUpdate' article.id %}">
+{% else %}
+	<h2>新增文章</h2>
+	<form method="post" action="{% url 'article:articleCreate' %}">
+{% endif %}
 	{% csrf_token %}
-	{{ articleForm.as_p }}
+	<table>
+		{{ articleForm.as_table }}
+	</table>
 	<input type="submit" value="送出">
 	<a class="btn" href="{% url 'article:article' %}">放棄</a>
 </form>
