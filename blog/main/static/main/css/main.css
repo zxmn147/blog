@@ -21,9 +21,10 @@ ul#menu li {
 .btn {
 	color: black;
 	font-size: 0.8em;
-	padding: 3px 7px;
+	padding: 5px 8px;
 	text-decoration: none;
 	border: thin solid gray;
+	border-radius: 8px;
 	background: linear-gradient(#f7f7f7, #dedede);
 }
 

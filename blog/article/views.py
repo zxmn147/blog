@@ -29,3 +29,4 @@ def articleCreate(request):
     template = 'article/articleCreate.html'
     if request.method == 'GET':
         return render(request, template, {'articleForm':ArticleForm()})
+    
