@@ -1,6 +1,6 @@
 from populate import base
 from article.models import Article, Comment
-import random
+
 
 def populate():
     print('Populating Article and Comment...', end='')
@@ -13,7 +13,7 @@ def populate():
         article.title = title
         for j in range(20):
             article.content += title + '\n'
-        article.likes = random.randint(0, 10)    
+        article.likes = 0    
         article.save()
         for comment in comments:
             Comment.objects.create(article=article, content=comment)

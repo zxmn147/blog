@@ -6,6 +6,8 @@ from django.db.models.query_utils import Q
 from article.models import Article, Comment
 from article.forms import ArticleForm
 
+
+
 def article(request):
     '''
     Render the article page
@@ -29,6 +31,7 @@ def articleCreate(request):
     '''
     template = 'article/articleCreateUpdate.html'
     if request.method == 'GET':
+        print(ArticleForm())
         return render(request, template, {'articleForm':ArticleForm()})
     # POST
     articleForm = ArticleForm(request.POST)
@@ -38,9 +41,12 @@ def articleCreate(request):
     messages.success(request, '文章已新增')
     return redirect('article:article')
     # Or try this at the last line: return article(request)
+    
+    
 def articleRead(request, articleId):
     '''
     Read an article
+        items.extend(list(Comment.ob
         1. Get the "article" instance; redirect to the 404 page if not found
         2. Render the articleRead template with article instance and its
         associated comments
@@ -50,7 +56,9 @@ def articleRead(request, articleId):
         'article': articleToRead,
         'comments': Comment.objects.filter(article=articleToRead)
     }
-    return render(request, 'article/articleRead.html', context)    
+    return render(request, 'article/articleRead.html', context)   
+
+ 
 def articleUpdate(request, articleId):
     '''
     Update the article instance:
@@ -71,6 +79,8 @@ def articleUpdate(request, articleId):
     articleForm.save()
     messages.success(request, '文章已修改')
     return redirect('article:articleRead', articleId=articleId)
+
+
 def articleDelete(request, articleId):
     '''
     Delete the article instance:
@@ -84,6 +94,8 @@ def articleDelete(request, articleId):
     articleToDelete.delete()
     messages.success(request, '文章已刪除')
     return redirect('article:article')
+
+
 def articleSearch(request):
     '''
     Search for articles:
@@ -95,6 +107,8 @@ def articleSearch(request):
                                       Q(content__icontains=searchTerm))
     context = {'articles':articles, 'searchTerm':searchTerm}
     return render(request, 'article/articleSearch.html', context)
+
+
 def commentCreate(request, articleId):
     '''
     Read an article
@@ -107,7 +121,40 @@ def commentCreate(request, articleId):
         return articleRead(request, articleToComment.id )
     # POST
     content = request.POST.get('comment')
-
+    articleId=articleId
     if content:
         Comment.objects.create(article=articleToComment, content=content)
         return redirect ('article:articleRead', articleId=articleId)
+
+
+def articleLike(request, articleId):
+    '''
+    Read an article
+        1. Get the "article" instance; redirect to the 404 page if not found
+        2. Render the articleRead template with article instance and its
+        associated comments
+    '''
+    articleToLike=get_object_or_404(Article, id=articleId)
+    articleToLike.likes +=1
+    articleToLike.save()
+    return redirect ('article:articleRead', articleId=articleId)
+
+#def commentUpdate(request, commentId):
+    #commentToUpdate = get_object_or_404(Comment, id=commentId)
+    #template = 'article/articleRead.html'
+    #if request.method == 'GET':
+        #return render(request, template, {'article':commentToUpdate})
+    # POST
+def commentDelete(request, commentId):
+    
+    if request.method == 'GET':
+        return articleRead(request)
+    #post
+    commentToDelete= get_object_or_404(Comment, id=commentId)
+    commentToDelete.delete()
+    messages.success(request, '留言已刪除')
+    return redirect('article:articleRead', articleId=commentToDelete.article.id)
+    
+    
+    
+    

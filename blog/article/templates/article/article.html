@@ -12,17 +12,17 @@
 <h1>歡迎來到我的部落格</h1>
 {% include 'main/messages.html' %}
 <br>
-<form class="inline" action="{% url 'article:articleSearch' %}">
+<form class="inlineBlock" action="{% url 'article:articleSearch' %}">
 	<input type="text" name="searchTerm">
-	<input type="submit" value="查詢">
+	<input class="btn" type="submit" value="查詢">
 </form>
-<a class="inline" href="{% url 'article:articleCreate' %}">新增文章</a>
-<br>
+<p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+<br><br><hr>
 {% for items in itemArray %}
 	{% for item in items %}
 		{% if forloop.first %}
-		<h3 class="inline"><a href="{% url 'article:articleRead' item.id %}">{{ item.title }}</a></h3>
-		<form class="inline" method="post" action="{% url 'article:articleDelete' item.id %}">
+		<h3 class="inlineBlock"><a href="{% url 'article:articleRead' item.id %}">{{ item.title }}</a></h3>
+		<form class="inlineBlock" method="post" action="{% url 'article:articleDelete' item.id %}">
 			{% csrf_token %}
 			<input type="submit" value="刪除">
 		</form>

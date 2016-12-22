@@ -1,5 +1,5 @@
 from django import forms
-from article.models import Article
+from article.models import Article, Comment
 
 class ArticleForm(forms.ModelForm):
     title = forms.CharField(label='標題', max_length=128)
@@ -8,3 +8,4 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ('title', 'content')
+        
