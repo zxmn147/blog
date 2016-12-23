@@ -1,17 +1,10 @@
-<!doctype html>
+{% extends 'main/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-<title>部落格</title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+{% block css %}
 <link rel="stylesheet" href="{% static 'article/css/article.css' %}">
-</head>
-<body>
-{% include 'main/menu.html' %}
-<h1>歡迎來到我的部落格</h1>
-{% include 'main/messages.html' %}
-<br>
+{% endblock %}
+{% block heading %}歡迎蒞臨{% endblock %}
+{% block content %}
 <form class="inlineBlock" action="{% url 'article:articleSearch' %}">
 	<input type="text" name="searchTerm">
 	<input class="btn" type="submit" value="查詢">
@@ -38,6 +31,4 @@
 	{% endfor %}
 	<hr>
 {% endfor %}
-<br>
-</body>
-</html>
+{% endblock %}

@@ -1,15 +1,6 @@
-<!doctype html>
-{% load staticfiles %}
-<html>
-<head>
-<title>部落格</title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
-</head>
-<body>
-{% include 'main/menu.html' %}
-<h1>歡迎來到我的部落格</h1>
-<br>
+{% extends 'main/base.html' %}
+{% block heading %}查詢{% endblock %}
+{% block content %}
 <form action="{% url 'article:articleSearch' %}">
 	<input type="text" name="searchTerm" {% if searchTerm %}value="{{ searchTerm }}"{% endif %}>
 	<input type="submit" value="查詢">
@@ -25,5 +16,4 @@
 	</tr>
 	{% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}
