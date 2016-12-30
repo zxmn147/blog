@@ -9,22 +9,27 @@
 	<input type="text" name="searchTerm">
 	<input class="btn" type="submit" value="查詢">
 </form>
-<p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+{% if user.is_superuser %}
+  <p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+{% endif %}
 <br><br><hr>
 {% for items in itemArray %}
 	{% for item in items %}
 		{% if forloop.first %}
 		<h3 class="inlineBlock"><a href="{% url 'article:articleRead' item.id %}">{{ item.title }}</a></h3>
-		<form class="inlineBlock" method="post" action="{% url 'article:articleDelete' item.id %}">
-			{% csrf_token %}
-			<input type="submit" value="刪除">
-		</form>
+		{% if user.is_superuser %}
+			<form class="inlineBlock" method="post" action="{% url 'article:articleDelete' item.id %}">
+				{% csrf_token %}
+				<input type="submit" value="刪除">
+			</form>
+		{% endif %}
 		<p>發表時間:{{ item.pubDateTime|date:'Y-m-d H:i' }}</p>
 		<div class=articleContent>{{ item.content|linebreaks|truncatewords_html:10 }}</div>
 		<p>瀏覽次數:{{ item.views }},按讚:{{ item.likes }}</p>
 	{% else %}
 	 <p>
 		<span class=comment>{{ item.content }}</span><br>
+		<span class=commentAuthor>{{ item.user.profile.fullName }}</span>
 		<span class=commentTime>{{ item.pubDateTime|date:'m 月 d 日 H:i'}}</span>
 		</p>
 	 {% endif %}

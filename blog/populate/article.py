@@ -1,5 +1,6 @@
 from populate import base
 from article.models import Article, Comment
+from django.contrib.auth.models import User
 
 
 def populate():
@@ -16,7 +17,7 @@ def populate():
         article.likes = 0    
         article.save()
         for comment in comments:
-            Comment.objects.create(article=article, content=comment)
+            Comment.objects.create(article=article, content=comment, User=User)
     print('done')
         
 if __name__ == '__main__':

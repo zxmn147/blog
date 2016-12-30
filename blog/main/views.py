@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
-from django.core.paginator import Page
+
+from django.contrib import messages
+
+
+from blog.settings import LOGIN_URL
+
+
 def main(request):
     '''
     Render the main page
@@ -19,3 +25,11 @@ def contact(request):
     Render the contact Page
     '''
     return render(request, 'main/contact.html')
+
+def admin_required(func):
+    def auth(request, *args, **kwargs):
+        if not request.user.is_superuser:
+            messages.error(request, '請以管理者身份登入')
+            return redirect('account:login')
+        return func(request, *args, **kwargs)
+    return auth

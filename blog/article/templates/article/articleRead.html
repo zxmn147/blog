@@ -6,7 +6,9 @@
 {% block heading %}閱讀文章{% endblock %}
 {% block content %}
 <h3> {{ article.title }}</h3>
+{% if user.is_superuser %}
 <p><a class="btn" href="{% url 'article:articleUpdate' article.id %}">修改</a></p>
+{% endif %}
 <p>發表時間:{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
 <div class=articleContent>{{ article.content|linebreaks }}</div>
 <p>讚:{{ article.likes }}</p>
@@ -14,6 +16,7 @@
 {% for comment in comments %}
 	<p>
 		<span class=comment>{{ comment.content }}</span><br>
+		<span class=commentAuthor>{{ item.user.profile.fullName }}</span>
 		<span class=commentTime>{{ comment.pubDateTime|date:'m 月 d 日 H:i'}}</span>
 		{% comment %}
 		<form class="inlineBlock" method="post" action="{% url 'article:commentUpdate' comment.id %}">
